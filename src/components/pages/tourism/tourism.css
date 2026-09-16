@@ -1,0 +1,121 @@
+/* Medical Tourism — page-local ambient loops & scene helpers (medical-tourism.md).
+   All loops are transform/opacity-only (GPU-safe, §2.6); scenes carry max 3 loops
+   per viewport. Global prefers-reduced-motion rule already neutralizes durations;
+   the explicit media query below removes them entirely for clarity. */
+
+/* Intro: down-arrow cue bob (8s loop, y 0→8→0 — §Section 1) */
+@keyframes mt-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+.mt-cue-bob {
+  animation: mt-bob var(--loop-dunes) var(--ease-soft) infinite;
+}
+
+/* Dead Sea: water band slow horizontal shift ±20px (8s — §Ch.1) */
+@keyframes mt-water-shift {
+  0%, 100% { transform: translateX(-20px); }
+  50% { transform: translateX(20px); }
+}
+.mt-water-a {
+  animation: mt-water-shift var(--loop-dunes) ease-in-out infinite;
+}
+.mt-water-b {
+  animation: mt-water-shift var(--loop-dunes) ease-in-out infinite reverse;
+}
+
+/* Dead Sea: salt crystals drift upward (6s loop — §Ch.1) */
+@keyframes mt-crystal-rise {
+  0% { transform: translateY(16px); opacity: 0.05; }
+  50% { opacity: 0.14; }
+  100% { transform: translateY(-16px); opacity: 0.05; }
+}
+.mt-crystal {
+  animation: mt-crystal-rise 6s ease-in-out infinite;
+}
+
+/* Ma'in: steam contour bands drift up (8s loop, translateY −12px → 0 — §2.3.2) */
+@keyframes mt-steam-rise {
+  0% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+.mt-steam-drift {
+  animation: mt-steam-rise var(--loop-dunes) ease-in-out infinite alternate;
+}
+
+/* Ma'in: waterfall ribbon — flowing dash-offset loop suggests falling water (§Ch.2) */
+@keyframes mt-falls {
+  to { stroke-dashoffset: -96; }
+}
+.mt-falls-line {
+  stroke-dasharray: 26 22;
+  animation: mt-falls var(--loop-dunes) linear infinite;
+}
+
+/* Aqaba: sea band shimmer (8s — §Ch.5) */
+@keyframes mt-sea-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.mt-sea-shimmer {
+  background-size: 200% 100%;
+  animation: mt-sea-shimmer var(--loop-dunes) ease-in-out infinite;
+}
+
+/* Aqaba: coral diamond clusters pulse 1↔1.05 (6s, ease-breathe — §Ch.5) */
+@keyframes mt-reef-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.mt-reef-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mt-reef-pulse 6s var(--ease-breathe) infinite;
+}
+
+/* Aqaba: fish-school drift (8s loop — §Ch.5) */
+@keyframes mt-fish-drift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(28px); }
+}
+.mt-fish {
+  animation: mt-fish-drift var(--loop-dunes) ease-in-out infinite;
+}
+
+/* Wadi Night: every scene ~30% darker via overlay; star layers gain opacity (§Global) */
+.mt-night-veil {
+  position: absolute;
+  inset: 0;
+  background: #1B1611;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease-soft);
+}
+[data-theme="wadi-night"] .mt-night-veil {
+  opacity: 0.3;
+}
+.mt-stars {
+  transition: opacity var(--dur-med) var(--ease-soft);
+}
+[data-theme="wadi-night"] .mt-stars {
+  opacity: 0.9 !important;
+}
+
+/* Petra: grain stronger (8%) for stone feel (§Ch.4) */
+.mt-grain-strong::before {
+  opacity: 0.08 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mt-cue-bob,
+  .mt-water-a,
+  .mt-water-b,
+  .mt-crystal,
+  .mt-steam-drift,
+  .mt-falls-line,
+  .mt-sea-shimmer,
+  .mt-reef-pulse,
+  .mt-fish {
+    animation: none !important;
+  }
+}

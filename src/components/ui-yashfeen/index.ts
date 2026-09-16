@@ -1,0 +1,10 @@
+/** Shared Yashfeen primitives (design.md §2.8) — import from '@/components/ui-yashfeen' */
+export { Card } from './Card'
+export { Chip } from './Chip'
+export { VerifiedBadge } from './VerifiedBadge'
+export { SourceLine } from './SourceLine'
+export { SectionHead } from './SectionHead'
+export { Disclaimer } from './Disclaimer'
+export { EmptyStub } from './EmptyStub'
+export { BreatheButton } from './BreatheButton'
+export { BreatheOverlay } from './BreatheOverlay'

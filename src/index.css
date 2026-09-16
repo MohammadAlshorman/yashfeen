@@ -1,0 +1,458 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ===== Yashfeen core palette (design.md §2.1 — exact) ===== */
+    --afya-petra-rose: #B76E58;
+    --afya-rum-sand: #D9A05B;
+    --afya-deadsea-teal: #4E8D8B;
+    --afya-salt-white: #F4EFE6;
+    --afya-wadi-night: #1B1611;
+    --afya-anemone-red: #A63A3A;
+
+    /* Derived shades */
+    --afya-petra-rose-deep: #8F4F3D;
+    --afya-petra-rose-soft: #E8C9BC;
+    --afya-rum-sand-deep: #9A6A2E;
+    --afya-rum-sand-soft: #F0DDC0;
+    --afya-deadsea-teal-deep: #35605F;
+    --afya-deadsea-teal-soft: #C4DEDD;
+    --afya-night-raised: #2A211A;
+    --afya-night-border: #3D322A;
+    --afya-ink: #241C14;
+    --afya-ink-muted: #5D5245;
+    --afya-cream: #FBF7EF;
+    --afya-cream-text: #EFE7DA;
+    --afya-cream-muted: #B9AC9A;
+    --afya-line: #DDD2BF;
+    --afya-anemone-soft: #F0CFCB;
+
+    /* ===== Semantic mapping (light = Salt White) ===== */
+    --afya-surface: var(--afya-salt-white);
+    --afya-raised: var(--afya-cream);
+    --afya-text: var(--afya-ink);
+    --afya-text-muted: var(--afya-ink-muted);
+    --afya-border: var(--afya-line);
+    --afya-interactive: var(--afya-petra-rose-deep);
+    --afya-interactive-accent: var(--afya-deadsea-teal-deep);
+    --afya-danger: var(--afya-anemone-red);
+
+    /* ===== Mood engine defaults (Calm) — MoodProvider overrides inline ===== */
+    --mood-accent: #4E8D8B;
+    --mood-accent-deep: #35605F;
+    --mood-accent-soft: var(--mood-accent-soft-light, #C4DEDD);
+    --mood-glow: rgba(78, 141, 139, .45);
+    --mood-ambiance: linear-gradient(180deg, #4E8D8B14 0%, #D9A05B33 55%, #B76E5826 100%);
+
+    /* ===== Hero scene tokens (Salt White) ===== */
+    --hero-sky-1: #F6EBDD;
+    --hero-sky-2: #F0DDC0;
+    --hero-sky-3: #D9A05B;
+    --hero-sun-1: #F6EBDD;
+    --hero-sun-2: #D9A05B;
+    --dune-1: #E8C9BC;
+    --dune-2: #D9A05B;
+    --dune-3: #B76E58;
+    --dune-4: #5C4033;
+
+    /* ===== Typography ===== */
+    --font-display: "Fraunces", "Noto Kufi Arabic", serif;
+    --font-body: "Inter", "Noto Kufi Arabic", system-ui, sans-serif;
+    --font-ar: "Noto Kufi Arabic", sans-serif;
+
+    /* ===== Radii ===== */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+    --radius-pill: 999px;
+    --radius-arch: 120px 120px 22px 22px;
+    --radius: 0.625rem; /* shadcn compat */
+
+    /* ===== Shadows (warm-tinted, never pure black) ===== */
+    --shadow-card: 0 1px 2px rgba(27, 22, 17, .06), 0 8px 24px -8px rgba(27, 22, 17, .14);
+    --shadow-lift: 0 2px 4px rgba(27, 22, 17, .08), 0 18px 44px -12px rgba(143, 79, 61, .28);
+    --shadow-overlay: 0 24px 80px -16px rgba(27, 22, 17, .45);
+    --shadow-glow: 0 0 48px var(--mood-glow);
+
+    /* ===== Motion tokens ===== */
+    --dur-instant: 120ms;
+    --dur-fast: 220ms;
+    --dur-med: 420ms;
+    --dur-slow: 800ms;
+    --loop-dunes: 8s;
+    --loop-orb: 7s;
+    --loop-grain: 6s;
+    --ease-out-expo: cubic-bezier(.16, 1, .3, 1);
+    --ease-soft: cubic-bezier(.4, 0, .2, 1);
+    --ease-breathe: cubic-bezier(.37, 0, .63, 1);
+
+    /* ===== shadcn/ui compat vars (remapped to Yashfeen) ===== */
+    --background: 39 39% 93%;      /* salt-white */
+    --foreground: 30 29% 11%;      /* ink */
+    --card: 40 60% 96%;            /* cream */
+    --card-foreground: 30 29% 11%;
+    --popover: 40 60% 96%;
+    --popover-foreground: 30 29% 11%;
+    --primary: 14 40% 40%;         /* petra-rose-deep */
+    --primary-foreground: 34 32% 90%;
+    --secondary: 36 56% 85%;       /* rum-sand-soft */
+    --secondary-foreground: 30 29% 11%;
+    --muted: 37 30% 87%;
+    --muted-foreground: 32 14% 32%; /* ink-muted */
+    --accent: 181 28% 85%;         /* teal-soft */
+    --accent-foreground: 181 29% 29%;
+    --destructive: 0 48% 44%;      /* anemone */
+    --destructive-foreground: 34 32% 90%;
+    --border: 37 30% 81%;          /* line */
+    --input: 37 30% 81%;
+    --ring: 181 29% 29%;
+  }
+
+  /* ===== Wadi Night (dark theme) — design.md §2.10 ===== */
+  [data-theme="wadi-night"] {
+    --afya-surface: var(--afya-wadi-night);
+    --afya-raised: var(--afya-night-raised);
+    --afya-text: var(--afya-cream-text);
+    --afya-text-muted: var(--afya-cream-muted);
+    --afya-border: var(--afya-night-border);
+    --afya-interactive: var(--afya-rum-sand);
+    --afya-interactive-accent: var(--afya-deadsea-teal);
+    --afya-danger: #C95C5C;
+    --afya-anemone-soft: #4A2626;
+
+    /* Mood soft variants darken on Wadi Night */
+    --mood-accent-soft: color-mix(in oklab, var(--mood-accent-soft-light, #C4DEDD) 30%, #1B1611);
+
+    /* Hero scene: night sky, moon-pearl disc, deepened dunes */
+    --hero-sky-1: #1B1611;
+    --hero-sky-2: #2A211A;
+    --hero-sky-3: #3E3A36;
+    --hero-sun-1: #EFE3D3;
+    --hero-sun-2: #B9AC9A;
+    --dune-1: #3D322A;
+    --dune-2: #2A211A;
+    --dune-3: #241C14;
+    --dune-4: #14100B;
+
+    /* Dark theme shadow opacity ×1.4 */
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, .09), 0 8px 24px -8px rgba(0, 0, 0, .2);
+    --shadow-lift: 0 2px 4px rgba(0, 0, 0, .11), 0 18px 44px -12px rgba(143, 79, 61, .39);
+    --shadow-overlay: 0 24px 80px -16px rgba(0, 0, 0, .63);
+
+    --background: 27 23% 9%;
+    --foreground: 34 32% 90%;
+    --card: 28 25% 13%;
+    --card-foreground: 34 32% 90%;
+    --popover: 28 25% 13%;
+    --popover-foreground: 34 32% 90%;
+    --primary: 32 62% 60%;
+    --primary-foreground: 27 23% 9%;
+    --secondary: 30 18% 20%;
+    --secondary-foreground: 34 32% 90%;
+    --muted: 30 18% 20%;
+    --muted-foreground: 32 13% 64%;
+    --accent: 181 28% 43%;
+    --accent-foreground: 34 32% 90%;
+    --border: 30 18% 20%;
+    --input: 30 18% 20%;
+    --ring: 32 62% 60%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--afya-surface);
+    color: var(--afya-text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color var(--dur-med) var(--ease-soft), color var(--dur-med) var(--ease-soft);
+  }
+
+  /* Arabic: Kufi body, no letter-spacing, +0.05 line-height (§2.4/§2.9) */
+  html[lang="ar"] body {
+    font-family: var(--font-ar);
+    line-height: 1.7;
+  }
+  html[lang="ar"] h1,
+  html[lang="ar"] h2,
+  html[lang="ar"] h3,
+  html[lang="ar"] .font-display {
+    font-family: var(--font-ar);
+    letter-spacing: 0 !important;
+    line-height: 1.2;
+  }
+  html[lang="ar"] .font-display {
+    font-weight: 700;
+  }
+
+  ::selection {
+    background-color: var(--mood-accent-soft);
+    color: var(--afya-text);
+  }
+
+  /* Focus-visible: 3px mood-accent ring, offset 2px — never removed (§2.12) */
+  :focus-visible {
+    outline: 3px solid var(--mood-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Directional icons mirror in RTL (§2.9) */
+  [dir="rtl"] .rtl-flip {
+    transform: scaleX(-1);
+  }
+
+  /* Reduced motion: all loops stop, reveals instant (§2.6 — hard requirement) */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Skip-link: first focusable element (§2.12) */
+  .skip-link {
+    position: fixed;
+    inset-block-start: 8px;
+    inset-inline-start: 8px;
+    z-index: 100;
+    padding: 10px 18px;
+    border-radius: var(--radius-pill);
+    background: var(--afya-interactive);
+    color: var(--afya-cream-text);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transform: translateY(-200%);
+    transition: transform var(--dur-fast) var(--ease-soft);
+  }
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+
+  /* ===== Texture library (§2.7) — code-generated, zero image files ===== */
+
+  /* 1. Sandstone Grain — feTurbulence, applied on a ::before layer */
+  .texture-grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .texture-grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='180' height='180' filter='url(%23g)'/></svg>");
+  }
+  [data-theme="wadi-night"] .texture-grain::before {
+    opacity: 0.08;
+  }
+
+  /* 2. Salt-Crystal Lattice — hexagon outlines + inner triangle, 48px cell (§2.3.1) */
+  .texture-salt-lattice {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><g fill='none' stroke='currentColor' stroke-width='1'><path d='M36.1 31 L24 38 L11.9 31 L11.9 17 L24 10 L36.1 17 Z'/><path d='M24 17 L29 26 L19 26 Z'/><path d='M12.1 7 L0 14 L-12.1 7 L-12.1 -7 L0 -14 L12.1 -7 Z'/><path d='M60.1 7 L48 14 L35.9 7 L35.9 -7 L48 -14 L60.1 -7 Z'/><path d='M12.1 55 L0 62 L-12.1 55 L-12.1 41 L0 34 L12.1 41 Z'/><path d='M60.1 55 L48 62 L35.9 55 L35.9 41 L48 34 L60.1 41 Z'/></g></svg>");
+    background-size: 48px 48px;
+  }
+
+  /* 3. Dune Contour Lines — topographic bezier tile (§2.3.3) */
+  .texture-dune-contours {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='120' viewBox='0 0 200 120'><g fill='none' stroke='currentColor' stroke-width='1'><path d='M0 20 C 40 8, 80 30, 120 18 S 180 26, 200 14'/><path d='M0 45 C 45 33, 85 55, 125 42 S 185 50, 200 40'/><path d='M0 70 C 40 58, 90 80, 130 66 S 185 74, 200 62'/><path d='M0 95 C 50 84, 85 105, 135 92 S 185 100, 200 90'/><path d='M0 118 C 45 108, 95 126, 140 114 S 185 120, 200 112'/></g></svg>");
+    background-size: 200px 120px;
+  }
+
+  /* Destination patterns (§2.3) — shared so Home's destination ribbon can use them */
+  /* Ma'in: Steam Contour Bands (§2.3.2) */
+  .texture-steam-bands {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><g fill='none' stroke='currentColor' stroke-width='1.5'><path d='M20 150 C 30 110, 10 90, 24 60 C 34 38, 28 24, 34 8'/><path d='M80 160 C 92 118, 70 96, 86 64 C 96 42, 90 26, 98 6'/><path d='M140 152 C 150 112, 130 92, 144 62 C 154 40, 148 24, 156 10'/></g></svg>"),
+      repeating-radial-gradient(circle at 50% 120%, currentColor 0 1px, transparent 1px 26px);
+    background-size: 160px 160px, 100% 100%;
+  }
+
+  /* Petra: Sandstone Striation (§2.3.4) */
+  .texture-striation {
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='s'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='180' height='180' filter='url(%23s)' opacity='0.5'/></svg>"),
+      repeating-linear-gradient(-8deg, currentColor 0 3px, transparent 3px 10px);
+    background-size: 180px 180px, 100% 100%;
+  }
+
+  /* Aqaba: Reef Crystal — concentric rounded diamonds, 40px cell (§2.3.5) */
+  .texture-reef {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><g fill='none' stroke='currentColor' stroke-width='1'><rect x='13' y='13' width='14' height='14' rx='4' transform='rotate(45 20 20)'/><rect x='16' y='16' width='8' height='8' rx='2.5' transform='rotate(45 20 20)'/><rect x='9' y='9' width='22' height='22' rx='6' transform='rotate(45 20 20)'/></g></svg>");
+    background-size: 40px 40px;
+  }
+
+  /* Card base (§2.8) */
+  .afya-card {
+    background-color: var(--afya-raised);
+    border: 1px solid var(--afya-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--dur-fast) var(--ease-out-expo), box-shadow var(--dur-fast) var(--ease-out-expo);
+  }
+  .afya-card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lift);
+  }
+
+  /* Breathe overlay phase-label crossfade + completion check draw (mind.md) */
+  @keyframes breathe-phase-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .breathe-phase-swap {
+    animation: breathe-phase-in 300ms var(--ease-soft) both;
+  }
+  @keyframes draw-stroke {
+    to { stroke-dashoffset: 0; }
+  }
+  .breathe-check-circle {
+    stroke-dasharray: 189;
+    stroke-dashoffset: 189;
+    animation: draw-stroke 500ms var(--ease-out-expo) forwards;
+  }
+  .breathe-check-path {
+    stroke-dasharray: 36;
+    stroke-dashoffset: 36;
+    animation: draw-stroke 400ms var(--ease-out-expo) 180ms forwards;
+  }
+
+  /* Mood prompt modal entrance (home.md §2) */
+  @keyframes mood-modal-in {
+    from { opacity: 0; transform: translateY(32px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .mood-modal-in {
+    animation: mood-modal-in 500ms var(--ease-out-expo) both;
+  }
+  @keyframes mood-modal-out {
+    to { opacity: 0; transform: translateY(-24px); }
+  }
+  .mood-modal-out {
+    animation: mood-modal-out 300ms var(--ease-soft) both;
+  }
+  @keyframes mood-orb-burst {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+  .mood-orb-burst {
+    animation: mood-orb-burst 420ms var(--ease-soft) both;
+  }
+
+  /* Mobile bottom-sheet entrance (§2.8: staggered item entrance, 60ms) */
+  @keyframes sheet-in {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  .sheet-in {
+    animation: sheet-in 420ms var(--ease-out-expo) both;
+  }
+  @keyframes sheet-item-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .sheet-item-in {
+    animation: sheet-item-in 420ms var(--ease-out-expo) both;
+  }
+
+  /* Hero helpers (home.md §1) */
+  @keyframes afya-grain-shimmer {
+    0%, 100% { opacity: 0.05; }
+    50% { opacity: 0.08; }
+  }
+  .texture-grain-animated::before {
+    animation: afya-grain-shimmer var(--loop-grain) steps(2) infinite;
+  }
+  @keyframes afya-ambiance-out {
+    to { opacity: 0; }
+  }
+  .ambiance-fade-out {
+    animation: afya-ambiance-out 800ms var(--ease-soft) both;
+  }
+  @keyframes afya-scroll-cue {
+    0% { transform: scaleY(0); transform-origin: top; }
+    45% { transform: scaleY(1); transform-origin: top; }
+    55% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+  .scroll-cue-line {
+    animation: afya-scroll-cue 2s var(--ease-soft) infinite;
+  }
+
+  /* Destination glyph stroke-draw on hover (home.md §4) */
+  .glyph-draw :where(path, rect, circle) {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    transition: stroke-dashoffset 600ms var(--ease-soft);
+  }
+  .group:hover .glyph-draw :where(path, rect, circle) {
+    stroke-dashoffset: 0;
+  }
+
+  /* Active nav underline in mood accent (§2.8) */
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--afya-text-muted);
+    transition: color var(--dur-instant) var(--ease-soft);
+  }
+  .nav-link:hover {
+    color: var(--afya-text);
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    inset-block-end: 6px;
+    inset-inline-start: 0;
+    height: 2px;
+    width: 0;
+    border-radius: 2px;
+    background: var(--mood-accent);
+    transition: width var(--dur-fast) var(--ease-soft);
+  }
+  .nav-link.active {
+    color: var(--afya-text);
+  }
+  .nav-link.active::after {
+    width: 100%;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Pause ambient loops when hero is off-screen (IntersectionObserver toggles this) */
+  .loops-paused,
+  .loops-paused::before,
+  .loops-paused::after,
+  .loops-paused * {
+    animation-play-state: paused !important;
+  }
+}
